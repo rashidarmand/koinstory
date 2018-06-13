@@ -12,7 +12,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/koinstory');
+mongoose.connect(process.env.MONGO_DB_URI);
 const db = mongoose.connection;
 
 const routes = require('./routes/index');
