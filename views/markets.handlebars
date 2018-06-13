@@ -1,0 +1,45 @@
+<br>
+<div class="row">
+  <div class="col s8 m6 l6 black white-text">
+    <h1 class="center-align">Top 10</h1>
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Coin</th>
+          <th>Symbol</th>
+          <th>Price</th>
+          <th>24hr Change</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each coins}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{symbol}}</td>
+          <td>{{price}}</td>
+          {{!-- {{#isLoss change24h}} --}}
+          <td><span class="loss">{{change24h}}</span></td>
+          {{!-- {{else}} --}}
+          {{!-- <td><span class="gain">{{change24h}}</span></td> --}}
+          {{!-- {{/isLoss}} --}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <br>
+  </div>
+  <div class="col s8 m6 l6 black white-text">
+    <div class="row">
+      <div class="s12">
+        {{!-- hello chart --}}
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="s12">
+        {{!-- another chart --}}
+      </div>
+    </div>
+  </div>
+</div>

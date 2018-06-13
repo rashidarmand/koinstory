@@ -25,7 +25,7 @@
         <div class="nav-wrapper hide-on-med-and-down">
           <form action="/search" method="post">
             <div class="input-field">
-              <input type="search" name="search" id="search" placeholder="e.g. #bitcoin or @markets">
+              <input type="search" name="search" id="search" placeholder="e.g. bitcoin or btc">
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
               <i class="material-icons">close</i>
             </div>
@@ -43,7 +43,7 @@
       <li><div class="nav-wrapper mobile-search">
         <form action="/search" method="post">
           <div class="input-field">
-            <input type="search" name="search" id="search" placeholder="e.g. #bitcoin or @markets">
+            <input type="search" name="search" id="search" placeholder="e.g. bitcoin or btc">
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             <i class="material-icons">close</i>
           </div>
@@ -67,7 +67,7 @@
             </div>
           </div></li>
           <li><a class="" href="/" /><span class="green-letter">H</span>ome</a></li>
-          <li><a class="" href="/feed" /><span class="green-letter">F</span>eed</a></li>
+          <li><a class="" href="/markets" /><span class="green-letter">M</span>arkets</a></li>
           <li><a class="" href="/users/logout" /><span class="green-letter">L</span>og <span class="green-letter">O</span>ut</a></li>
         </ul>
       </div>
@@ -106,6 +106,18 @@
         <div class="row">
           <div class="col s12 center-align">
             <div class="row">
+              {{!-- FLASH MESSAGES --}}
+              {{#if success_message}}
+                <div class="alert card-panel green lighten-4 green-text text-darken-4"><b>Success!</b>  {{success_message}}</div>
+              {{/if}}
+
+              {{#if error_message}}
+                <div class="alert card-panel red lighten-4 red-text text-darken-4"><b>Error!</b>  {{error_message}}</div>
+              {{/if}}
+
+              {{#if error}}
+                <div class="alert card-panel red lighten-4 red-text text-darken-4"><b>Error!</b>  {{error}}</div>
+              {{/if}}
               <h1 class = "center-align"><span class="green-letter">W</span>hat<span class="green-letter">'</span>s <span class="green-letter">Y</span>our <span class="green-letter">S</span>tory<span class="green-letter">?</span></h1>
               <div class="col l6 s12 left-align home-info">
                 <span class="green-letter">F</span>rom crypto whales to the newest investors, every purchase and sale of a cryptocurrency is writing a story. Be it tremendous success or devastating loss, your story is constantly evolving. In this fast moving space, it can become difficult to keep track of how your story is unfolding over time. With that in mind, the developers of <a href="https://koinstack.herokuapp.com/" target="_blank" title="Koin Stack's Website">Koin Stack</a> are proud to introduce <span class="green-letter">K</span>oin <span class="green-letter">S</span>tories(or <span class="green-letter">S</span>tories for short). <span class="green-letter">S</span>tories by Koin Stack is designed to be an easy to use cryptocurrency portfolio management application for investors of all skill levels.
@@ -147,6 +159,7 @@
 
 
   <!--JavaScript at end of body for optimized loading-->
+  <script src="/scripts/Chart.min.js"></script>
   <script src="/js/materialize.js" type="text/javascript"></script>
   <script src="/js/main.js" type="text/javascript"></script>
 </body>

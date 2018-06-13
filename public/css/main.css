@@ -195,6 +195,31 @@ input#username:focus::placeholder , input#password:focus::placeholder, input#fir
   margin: 0;
 }
 
+table.highlight > tbody > tr:hover{
+  background-color: #F2F2F2;
+  color: black;
+  transition: background-color .2s ease;
+}
+
+.gain{
+  background: green;
+  color: #F2F2F2;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.loss{
+  background: firebrick;
+  color: #F2F2F2;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+img.coin-img.responsive-img{
+  height: 200px;
+  width: 200px;
+}
 
 
 

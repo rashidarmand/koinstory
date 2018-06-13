@@ -1,0 +1,34 @@
+<div class="fadeInLeft black white-text">
+  <h1 class="center-align"><span class="green-letter">R</span>esults</h1>
+  <div class="row">
+    <div class="col m6 s12 center-align">
+      <p class="coin-bio">
+        <ul>
+          <li>
+            <h2>{{general.symbol}}</h2>
+          </li>
+          <li>
+            <img class="coin-img responsive-img" src={{general.image}} alt="coin-image">
+          </li>
+          <li>
+            Name: {{general.name}}
+          </li>
+
+          <li>
+            Algorithim: {{general.algorithim}}
+          </li>
+          <li>
+            Proof Type: {{general.proofType}}
+          </li>
+        </ul>
+
+      </p>
+    </div>
+    <div class="col m6 s12">
+      <canvas id="coinLineChart" width="400" height="400"></canvas>
+      {{!-- {{prices.open}} Integrate Real Data later on --}}
+    </div>
+  </div>
+  
+</div>
+

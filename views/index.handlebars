@@ -1,11 +1,26 @@
 {{!-- INDEX --}}
 <br>
-<div class="row">
-  <div class="col s8 m6 l6 black white-text">
+<div class="black white-text center-align fadeInDown">
+  <br>
+  <h1><span class="green-letter">W</span>elcome <strong>{{user.username}}</strong> !</h1>
+  <p>
+    <h3>This is your <span class="green-letter">S</span>tory:</h3><br>
+    <ul>
+      <li>Total Portfolio Value: $10,244</li>
+      <li>Number of Coins Owned: 10</li>
+      {{!-- <li>Most Profitable Coin: Bitcoin</li> --}}
+    </ul>
+    <br>
+  </p>
+</div>
+
+<div class="col offset-s2 s8 black white-text">
+    <h1 class="center-align">My Portfolio</h1>
     <table class="highlight">
       <thead>
         <tr>
           <th>Coin</th>
+          <th>Symbol</th>
           <th>Holdings</th>
           <th>Price</th>
           <th>24hr Change</th>
@@ -13,26 +28,20 @@
       </thead>
 
       <tbody>
+        {{#each coins}}
         <tr>
-          <td>Alvin</td>
-          <td>Eclair</td>
-          <td>$0.87</td>
-          <td>2%</td>
+          <td>{{name}}</td>
+          <td>{{symbol}}</td>
+          <td>1</td>
+          <td>{{price}}</td>
+          {{!-- {{#isLoss change24h}} --}}
+          <td><span class="loss">{{change24h}}</span></td>
+          {{!-- {{else}} --}}
+          {{!-- <td><span class="gain">{{change24h}}</span></td> --}}
+          {{!-- {{/isLoss}} --}}
         </tr>
-        <tr>
-          <td>Alan</td>
-          <td>Jellybean</td>
-          <td>$3.76</td>
-          <td>-4%</td>
-        </tr>
-        <tr>
-          <td>Jonathan</td>
-          <td>Lollipop</td>
-          <td>$7.00</td>
-          <td>+5%</td>
-        </tr>
+        {{/each}}
       </tbody>
     </table>
     <br>
   </div>
-</div>

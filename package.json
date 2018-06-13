@@ -25,6 +25,8 @@
     "numeral": "^2.0.6",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
   }
 }
