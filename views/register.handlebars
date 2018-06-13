@@ -1,0 +1,44 @@
+{{!-- REGISTER --}}
+<h1 class="center-align fadeInDown white-text"><span class="green-letter">S</span>ign Up</h1>
+
+{{!-- Error Handling in View using Handlebars syntax --}}
+{{#if user}}
+  <div class="alert card-panel red lighten-4 red-text text-darken-4"><b>Alert!</b>  Username has taken already try new</div>
+{{/if}}
+{{#if mail}}
+  <div class="alert card-panel red lighten-4 red-text text-darken-4"><b>Alert!</b>  Email has taken already try new</div> 
+{{/if}} 
+{{#if errors}}
+  {{#each errors}}
+    <div class="alert card-panel red lighten-4 red-text text-darken-4"><b>Alert!</b>  {{msg}}</div>
+  {{/each}}
+{{/if}}
+
+<div class="row black white-text fadeInUp">
+  <p>
+    <h3 class="center-align">Create your account below</h3>
+  </p>
+  <form action="/users/register" method="post">
+    <div class="col s12">
+      <input type="text" name="firstName" id="first_name" placeholder="First Name" pattern="\w+" required>
+    </div>
+    <div class="col s12">
+      <input type="text" name="lastName" id="last_name" placeholder="Last Name" pattern="\w+" required>
+    </div>
+    <div class="col s12">
+      <input type="text" name="username" id="username" placeholder="Username" pattern="\w{3,30}" title="Between 3-30 characters no spaces or special characters" required>
+    </div>
+    <div class="col s12">
+      <input type="email" name="email" id="email" placeholder="Email" required>
+    </div>
+    <div class="col s12">
+      <input type="password" name="password" id="password" placeholder="Password" pattern="\w{3,30}" title="Between 3-30 characters no spaces or special characters" required>
+    </div>
+    <div class="col s12">
+      <input type="password" name="password2" id="password" placeholder="Confirm Password" pattern="\w{3,30}" title="Between 3-30 characters no spaces or special characters" required>
+    </div>
+    <p class="center-align">
+      <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Sign Up</button>
+    </p>
+  </form>
+</div>

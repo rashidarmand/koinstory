@@ -1,0 +1,383 @@
+@import url('https://fonts.googleapis.com/css?family=Exo|Open+Sans');
+
+body {
+  font-family: 'Exo', sans-serif;
+  background-image: url('/images/btc_bg.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+/* Home Page Styling */
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+
+.home-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: #F2F2F2;
+  width: 100%;
+  padding: 20px;
+  z-index: 1;
+  overflow: auto;
+}
+
+.home-info{
+  font-size: 1.2rem;
+}
+
+/* Nav Styling  */
+nav {
+  height: 70px;
+  background-color: black;
+}
+
+div.nav-wrapper.hide-on-med-and-down {
+  padding-left: 300px;
+}
+
+img#logo {
+  height: 100%;
+}
+
+div.user-view {
+  height: 175px;
+}
+
+.sidenav .user-view {
+  margin: 0;
+}
+
+input#search {
+  font-family: 'Exo', sans-serif;
+  color: #005a41;
+  margin: 0;
+}
+
+input#search::placeholder {
+  font-family: 'Exo', sans-serif;
+  color: #F2F2F2;
+}
+
+input#search:focus::placeholder {
+  font-family: 'Exo', sans-serif;
+  color: #005a41;
+}
+
+div.input-field {
+  margin: 0;
+}
+
+ul#big-screen-side-nav.sidenav {
+  background-color: #F2F2F2;
+}
+
+ul#big-screen-side-nav.sidenav li a {
+  font-size: 1.5rem;
+}
+
+ul#big-screen-side-nav.sidenav li a:hover {
+  background-color: black;
+  color: #F2F2F2;
+}
+
+ul#mobile-demo.sidenav {
+  background-color: #F2F2F2;
+}
+
+ul#mobile-demo.sidenav li a {
+  font-size: 1.5rem;
+}
+
+ul#mobile-demo.sidenav li a:hover {
+  background-color: black;
+  color: #F2F2F2;
+}
+
+div.nav-wrapper.mobile-search input#search::placeholder {
+  color: black;
+}
+
+div.nav-wrapper.mobile-search input#search:focus{
+  background-color: black;
+  color: #F2F2F2;
+}
+
+div.nav-wrapper.mobile-search input#search:focus::placeholder {
+  color: #F2F2F2;
+}
+
+div.nav-wrapper.mobile-search i {
+  color: #005a41;
+}
+
+/* Changes color of icons in search bar when in focus on medium-small screens */
+div.nav-wrapper.mobile-search .input-field input[type=search]:focus:not(.browser-default) + label i,
+div.nav-wrapper.mobile-search .input-field input[type=search]:focus:not(.browser-default) ~ .material-icons {
+  color: #F2F2F2;
+}
+
+
+
+
+
+/* Page Styling */
+::placeholder {
+  color: #005a41;
+}
+
+span.green-letter{
+  color: #005a41;
+}
+
+i.green-icon{
+  color: #005a41;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a:link {
+  color: #005a41;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:visited {
+  color: #F2F2F2;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:hover {
+  color: #005a41;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:active {
+  color: #005a41;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+
+
+/* Form styling */
+input#username , input#password, input#first_name, input#last_name, input#email, input#birthday, input#display_name, input#title, textarea.materialize-textarea, input#new_password, input#new_password2, input#display_name {
+  font-family: 'Exo', sans-serif;
+  color: #F2F2F2;
+  margin: 0;
+}
+
+input#username:focus , input#password:focus, input#first_name:focus, input#last_name:focus, input#email:focus, input#birthday:focus, input#display_name:focus, input#title:focus, textarea.materialize-textarea:focus, input#new_password:focus, input#new_password2:focus, input#display_name:focus  {
+  font-family: 'Exo', sans-serif;
+  background-color: #F2F2F2;
+  color: black;
+  margin: 0;
+}
+
+input#username::placeholder , input#password::placeholder, input#first_name::placeholder, input#last_name::placeholder, input#email::placeholder, input#birthday::placeholder, input#display_name::placeholder, input#title::placeholder, textarea.materialize-textarea::placeholder, input#new_password::placeholder, input#new_password2::placeholder, input#display_name::placeholder {
+  font-family: 'Exo', sans-serif;
+  color: #F2F2F2;
+  margin: 0;
+}
+
+input#username:focus::placeholder , input#password:focus::placeholder, input#first_name:focus::placeholder, input#last_name:focus::placeholder, input#email:focus::placeholder, input#birthday:focus::placeholder, input#display_name:focus::placeholder, input#title:focus::placeholder, textarea.materialize-textarea:focus::placeholder, input#new_password:focus::placeholder, input#new_password2:focus::placeholder, input#display_name:focus::placeholder  {
+  font-family: 'Exo', sans-serif;
+  color: black;
+  margin: 0;
+}
+
+
+
+
+/* Button, Links, & Cards Styling */
+div.col.s12.center-align a.waves-effect.waves-light.btn, div.col.s12.center-align a.waves-effect.waves-light.btn:focus {
+  background: #F2F2F2;
+  color: #005a41;
+  border: 1px solid #005a41;
+  text-decoration: none;
+}
+
+div.col.s12.center-align a.waves-effect.waves-light.btn:hover {
+  background: black;
+  color: #F2F2F2;
+  border: 1px solid #005a41;
+  text-decoration: none;
+}
+
+.waves-effect.waves-light.btn, .waves-effect.waves-light.btn:focus {
+  background: #F2F2F2;
+  color: #005a41;
+  border: 1px solid #005a41;
+  text-decoration: none;
+}
+
+.waves-effect.waves-light.btn:hover {
+  background: black;
+  color: #F2F2F2;
+  border: 1px solid #005a41;
+  text-decoration: none;
+}
+
+a.post-link {
+  display: block;
+}
+
+img.circle.responsive-img.left , img.circle.responsive-img.right {
+  height: 60px;
+}
+
+/* Alert Styling */
+.close {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  color: inherit;
+  margin-top: -18px;
+}
+
+.hide {
+  animation: fadeOut;
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+}
+
+/* Flash Styling */
+.flash {
+  border-radius: 2px;
+  padding: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.flash.info {
+  background-color: #7cee7c;
+}
+
+.flash.warning {
+  background-color: #ee7c7c;
+}
+
+.flash a, .flash a:link, .flash a:active, .flash a:visited {
+  position: absolute;
+  right: 20px;
+  text-decoration:  none;
+  color: black;
+  animation: beckon;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+.flash a:hover {
+  color: white;
+}
+
+.flash.hide {
+  display: none;
+}
+
+
+/* Keyframes */
+@keyframes beckon {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    display: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+     opacity: 0;
+     transform: translateY(-100%);
+  }
+  100% {
+     opacity: 1;
+     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+     opacity: 0;
+     transform: translateY(100%);
+  }
+  100% {
+     opacity: 1;
+     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+     opacity: 0;
+     transform: translateX(-100%);
+  }
+  100% {
+     opacity: 1;
+     transform: translateX(0);
+  }
+}  
+
+@keyframes fadeInRight {
+  0% {
+     opacity: 0;
+     transform: translateX(100%);
+  }
+  100% {
+     opacity: 1;
+     transform: translateX(0);
+  }
+}  
+
+.fadeInDown {
+  animation: fadeInDown;
+  animation-fill-mode: forwards;
+  animation-duration: 1.55s;
+}
+
+.fadeInLeft {
+  animation: fadeInLeft;
+  animation-fill-mode: forwards;
+  animation-duration: 1.55s;
+}
+
+.fadeInRight {
+  animation: fadeInRight;
+  animation-fill-mode: forwards;
+  animation-duration: 1.55s;
+}
+
+.fadeInUp {
+  animation: fadeInUp;
+  animation-fill-mode: forwards;
+  animation-duration: 1.55s;
+}
