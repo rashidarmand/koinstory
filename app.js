@@ -107,11 +107,12 @@ app.use('/', routes);
 app.use('/users', users);
 
 // Set Port
-app.set('port', (process.env.PORT || 3000)); // Set port to whatever is in the environment variable PORT, or 3000 if there's nothing there.
+//app.set('port', (process.env.PORT || 3000)); // Set port to whatever is in the environment variable PORT, or 3000 if there's nothing there.
+const port = process.env.PORT || 3000
 
 // Create Server
-app.listen(app.get('port'), ()=>{
-	console.log(`Server is live on ${app.get('port')}`);
+app.listen(port, ()=>{
+	console.log(`Server is live on ${port}`);
 });
 
 
