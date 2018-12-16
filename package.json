@@ -4,7 +4,7 @@
   "description": "Rashid Armand Personal Passion Project",
   "main": "app.js",
   "engines": {
-    "node": "10.1.0"
+    "node": "11.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,6 +26,7 @@
     "lodash": "^4.17.10",
     "mongodb": "*",
     "mongoose": "*",
+    "node-fetch": "^2.3.0",
     "numeral": "^2.0.6",
     "passport": "*",
     "passport-http": "*",

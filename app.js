@@ -12,7 +12,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_DB_URI);
+mongoose.connect('mongodb://localhost/koinstory');
 const db = mongoose.connection;
 
 const routes = require('./routes/index');
@@ -24,19 +24,22 @@ const app = express();
 // View Engine
 app.set('views', path.join(__dirname, 'views')); // Want a folder called 'views to handle my views'
 app.engine('handlebars', exphbs({
-  defaultLayout:'layout', 
-  helpers: {
-    isLoss: (val, options)=>{ 
-      if(val[0] === '-'){
-        this.innerHTML = `${val}`;
-        return options.fn(this);
-      } else {
-        this.innerHTML = `${val}`;
-        return options.inverse(this);
-      }
-    }
-  }
-})); // Set handlebars as the engine for the app, set the default layout as 'layout.handlebars', and define helpers to be used later
+	defaultLayout:'layout', 
+	helpers: {
+		isLoss: function(val, options) { 
+			console.log(options.fn());
+			if(val[0] === '-') {
+				this.innerHTML = `${val}`;
+				return options.fn(val);
+			} else {
+				this.innerHTML = `${val}`;
+				return options.inverse(val);
+			}
+		}
+	}
+})); 
+
+// Set handlebars as the engine for the app, set the default layout as 'layout.handlebars', and define helpers to be used later
 app.set('view engine', 'handlebars'); // Set view engine to handlebars
 // exphbs.create({
 //   // Specify helpers which are only registered on this instance.
@@ -74,7 +77,7 @@ app.use(passport.session());
 
 // Express Validator
 app.use(expressValidator({
-  errorFormatter: (param, msg, value)=>{
+  errorFormatter: (param, msg, value) => {
       let namespace = param.split('.')
       , root    = namespace.shift()
       , formParam = root;
@@ -108,10 +111,10 @@ app.use('/users', users);
 
 // Set Port
 //app.set('port', (process.env.PORT || 3000)); // Set port to whatever is in the environment variable PORT, or 3000 if there's nothing there.
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 // Create Server
-app.listen(port, ()=>{
+app.listen( port, () => {
 	console.log(`Server is live on ${port}`);
 });
 

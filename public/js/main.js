@@ -4,10 +4,10 @@ M.AutoInit();
 // Alert boxes disappear after 3 seconds
 let alertBoxes = document.querySelectorAll('.alert');
 
-alertBoxes.forEach(box=>{
-  window.setTimeout(()=>{
-    box.classList.add("hide");
-  }, 3000);
+alertBoxes.forEach( box => {
+	window.setTimeout(() => {
+		box.classList.add('hide');
+	}, 3000);
 });
 
 // Add modal functionality to button after path changes
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 // Charts
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
 
   let ctx = document.getElementById("myChart");
   let myChart = new Chart(ctx, {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 });
 
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
 
   new Chart(document.getElementById('coinLineChart'), {
     type: 'line',

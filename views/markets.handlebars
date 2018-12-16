@@ -15,14 +15,14 @@
       <tbody>
         {{#each coins}}
         <tr>
-          <td>{{name}}</td>
-          <td>{{symbol}}</td>
-          <td>{{price}}</td>
-          {{!-- {{#isLoss change24h}} --}}
-          <td><span class="loss">{{change24h}}</span></td>
-          {{!-- {{else}} --}}
-          {{!-- <td><span class="gain">{{change24h}}</span></td> --}}
-          {{!-- {{/isLoss}} --}}
+          <td>{{ name }}</td>
+          <td>{{ symbol }}</td>
+          <td>{{ price }}</td>
+          {{#isLoss change24h}}
+          <td><span class="loss">{{ change24h }}</span></td>
+          {{else}}
+          <td><span class="gain">{{ change24h }}</span></td>
+          {{/isLoss}}
         </tr>
         {{/each}}
       </tbody>
