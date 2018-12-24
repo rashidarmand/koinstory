@@ -18,20 +18,18 @@
     "chart.js": "^2.7.2",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
+    "eslint": "^5.11.0",
     "express": "*",
     "express-handlebars": "*",
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
-    "lodash": "^4.17.10",
     "mongodb": "*",
     "mongoose": "*",
     "node-fetch": "^2.3.0",
     "numeral": "^2.0.6",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*",
-    "request": "^2.87.0",
-    "request-promise": "^4.2.2"
+    "passport-local": "*"
   }
 }

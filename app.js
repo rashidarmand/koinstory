@@ -21,39 +21,23 @@ const users = require('./routes/users');
 // Initialize App
 const app = express();
 
-// View Engine
-app.set('views', path.join(__dirname, 'views')); // Want a folder called 'views to handle my views'
+// Set a folder called 'views to handle my views'
+app.set('views', path.join(__dirname, 'views'));
+
+// Set handlebars as the engine for the app, 
+// set the default layout as 'layout.handlebars', 
+// and define helpers to be used later
+app.set('view engine', 'handlebars'); // Set view engine to handlebars
 app.engine('handlebars', exphbs({
 	defaultLayout:'layout', 
 	helpers: {
-		isLoss: function(val, options) { 
-			console.log(options.fn());
-			if(val[0] === '-') {
-				this.innerHTML = `${val}`;
-				return options.fn(val);
-			} else {
-				this.innerHTML = `${val}`;
-				return options.inverse(val);
-			}
+		isLoss: function(value, options) { 
+			return value[0] === '-'
+				? options.fn(this)
+				: options.inverse(this);
 		}
 	}
 })); 
-
-// Set handlebars as the engine for the app, set the default layout as 'layout.handlebars', and define helpers to be used later
-app.set('view engine', 'handlebars'); // Set view engine to handlebars
-// exphbs.create({
-//   // Specify helpers which are only registered on this instance.
-//   helpers: {
-//     isLoss: val=>{ 
-//       if(val[0] === '-'){
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     }
-//   }
-// });
-
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -66,9 +50,9 @@ app.use('/scripts', express.static(__dirname + '/node_modules/chart.js/dist/'));
 
 // Express Sessions
 app.use(session({
-  secret: 'koinStory',
-  saveUninitialized: true,
-  resave: true
+	secret: 'koinStory',
+	saveUninitialized: true,
+	resave: true
 }));
 
 // Initialize Passport 
@@ -77,32 +61,32 @@ app.use(passport.session());
 
 // Express Validator
 app.use(expressValidator({
-  errorFormatter: (param, msg, value) => {
-      let namespace = param.split('.')
-      , root    = namespace.shift()
-      , formParam = root;
+	errorFormatter: (param, msg, value) => {
+		let namespace = param.split('.');
+		let root = namespace.shift();
+		let formParam = root;
 
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
-    }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
+		while(namespace.length) {
+			formParam += `[${ namespace.shift() }]`;
+		}
+		return {
+			param : formParam,
+			msg   : msg,
+			value : value
+		};
+	}
 }));
 
 // Connect Flash Messages
-app.use(flash());
+app.use( flash() );
 
 // Global Variables for Flash Messages
-app.use((req, res, next)=>{
-  res.locals.success_message = req.flash('success_message');
-  res.locals.error_message = req.flash('error_message');
-  res.locals.error = req.flash('error'); // For Passport's Flash Messages
-  res.locals.user = req.user || null;
-  next();
+app.use( (req, res, next) => {
+	res.locals.success_message = req.flash('success_message');
+	res.locals.error_message = req.flash('error_message');
+	res.locals.error = req.flash('error'); // For Passport's Flash Messages
+	res.locals.user = req.user || null;
+	next();
 });
 
 // Use these routes

@@ -119,7 +119,7 @@ router.post('/search', ensureAuthenticated, (req, res) => {
 				res.render('index', { error : `Sorry, could not find any information on ${query}` });
 			});
 	} else {
-		req.flash('error_message', 'Try entering a ticker symbol like eg. BTC !');
+		req.flash('error_message', 'Try entering a ticker symbol like "BTC" !');
 		res.redirect('/');
 	}
 });

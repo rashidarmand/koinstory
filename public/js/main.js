@@ -15,41 +15,31 @@ let currentPath = location.pathname;
 let signInBtn = document.querySelector('.sign-in');
 let signUpBtn = document.querySelector('.sign-up');
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  if(currentPath === '/users/login'){
-    signInBtn.classList.add('modal-trigger');
-  } else if(currentPath === '/users/register'){
-    signUpBtn.classList.add('modal-trigger');
-  }
+document.addEventListener('DOMContentLoaded', () => {
+	if(currentPath === '/users/login') {
+		signInBtn.classList.add('modal-trigger');
+	} else if(currentPath === '/users/register') {
+		signUpBtn.classList.add('modal-trigger');
+	}
 });
 
 // Charts
 document.addEventListener('DOMContentLoaded', () => {
+	let tickLabels = [...document.querySelectorAll('.tick-symbols')].map(ticker => ticker.innerText);
+  let pctChanges = [...document.querySelectorAll('.pct-change')].map(pct => +pct.innerText.substring(0, pct.innerText.length - 1));
+  let bgColors = pctChanges.map(pct => pct > 0 ? 'rgb(0, 128, 0)' : 'rgb(178, 34, 34)');
+  let borderColors = bgColors.map(bgc => bgc === 'rgb(0, 128, 0)' ? 'rgb(0, 32, 0)' : 'rgb(44.5, 8.5, 8.5)');
 
-  let ctx = document.getElementById("myChart");
+  const ctx = document.getElementById('top10Chart');
   let myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ["BTC", "LTC", "XRP", "XLM", "ETH", "MIOTA"],
+          labels: tickLabels,
           datasets: [{
               label: '% Change',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
+              data: pctChanges,
+              backgroundColor: bgColors,
+              borderColor: borderColors,
               borderWidth: 1
           }]
       },

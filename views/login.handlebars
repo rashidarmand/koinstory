@@ -3,18 +3,19 @@
 
 
 <div class="row black white-text fadeInUp">
-  <p>
+  <div>
     <h3 class="center-align">Enter your login credentials below</h3>
-  </p>
+  </div>
   <form action="/users/login" method="post">
     <div class="col s12">
       <input type="text" name="username" id="username" placeholder="Username" required>
     </div>
     <div class="col s12">
       <input type="password" name="password" id="password" placeholder="Password" required>
+       <br><br>
     </div>
-    <p class="center-align">
+    <div class="center-align">
       <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Sign In</button>
-    </p>
+    </div>
   </form>
 </div>

@@ -8,6 +8,8 @@ body {
   min-height: 100vh;
 }
 
+
+
 /* Home Page Styling */
 #myVideo {
   position: fixed;
@@ -21,7 +23,7 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.84);
   color: #F2F2F2;
   width: 100%;
   padding: 20px;
@@ -29,9 +31,11 @@ body {
   overflow: auto;
 }
 
-.home-info{
+.home-info {
   font-size: 1.2rem;
 }
+
+
 
 /* Nav Styling  */
 nav {
@@ -53,6 +57,10 @@ div.user-view {
 
 .sidenav .user-view {
   margin: 0;
+}
+
+a.sidenav-trigger.right {
+  text-decoration: none;
 }
 
 input#search {
@@ -101,30 +109,33 @@ ul#mobile-demo.sidenav li a:hover {
   color: #F2F2F2;
 }
 
+div.nav-wrapper.mobile-search input#search {
+  color: #f2f2f2;
+  background: black;
+}
+
 div.nav-wrapper.mobile-search input#search::placeholder {
-  color: black;
+  color: #f2f2f2;
 }
 
 div.nav-wrapper.mobile-search input#search:focus{
-  background-color: black;
-  color: #F2F2F2;
+  background-color: #F2F2F2;
+  color: #005a41;
 }
 
 div.nav-wrapper.mobile-search input#search:focus::placeholder {
-  color: #F2F2F2;
+  color: #005a41;
 }
 
 div.nav-wrapper.mobile-search i {
-  color: #005a41;
+  color: #f2f2f2;
 }
 
 /* Changes color of icons in search bar when in focus on medium-small screens */
 div.nav-wrapper.mobile-search .input-field input[type=search]:focus:not(.browser-default) + label i,
 div.nav-wrapper.mobile-search .input-field input[type=search]:focus:not(.browser-default) ~ .material-icons {
-  color: #F2F2F2;
+  color: #005a41;
 }
-
-
 
 
 
@@ -132,20 +143,16 @@ div.nav-wrapper.mobile-search .input-field input[type=search]:focus:not(.browser
 ::placeholder {
   color: #005a41;
 }
-
-span.green-letter{
+span.green-letter {
   color: #005a41;
 }
-
-i.green-icon{
+i.green-icon {
   color: #005a41;
 }
-
 ul {
   margin: 0;
   padding: 0;
 }
-
 a:link {
   color: #005a41;
   background-color: transparent;
@@ -167,6 +174,12 @@ a:active {
   text-decoration: underline;
 }
 
+
+
+/* Chart Styling */
+/* .top10ChartContainer {
+  height: 400px;
+} */
 
 
 /* Form styling */
@@ -201,6 +214,65 @@ table.highlight > tbody > tr:hover{
   transition: background-color .2s ease;
 }
 
+table.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  position: relative;
+  /* sort out borders */
+}
+table.responsive-table td:empty:before {
+  content: '\00a0';
+}
+table.responsive-table th,
+table.responsive-table td {
+  margin: 0;
+  vertical-align: top;
+}
+table.responsive-table th {
+  text-align: left;
+}
+table.responsive-table thead {
+  display: block;
+  float: left;
+}
+table.responsive-table thead tr {
+  display: block;
+  padding: 0 10px 0 0;
+}
+table.responsive-table thead tr th::before {
+  content: "\00a0";
+}
+table.responsive-table tbody {
+  display: block;
+  width: auto;
+  position: relative;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+table.responsive-table tbody tr {
+  display: inline-block;
+  vertical-align: top;
+}
+table.responsive-table th {
+  display: block;
+  text-align: right;
+}
+table.responsive-table td {
+  display: block;
+  min-height: 1.25em;
+  text-align: left;
+}
+table.responsive-table tr {
+  border-bottom: none;
+  padding: 0 10px;
+}
+table.responsive-table thead {
+  border: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
 .gain{
   background: green;
   color: #F2F2F2;
@@ -215,12 +287,10 @@ table.highlight > tbody > tr:hover{
   border-radius: 5px;
 }
 
-
 img.coin-img.responsive-img{
   height: 200px;
   width: 200px;
 }
-
 
 
 /* Button, Links, & Cards Styling */
@@ -260,6 +330,7 @@ img.circle.responsive-img.left , img.circle.responsive-img.right {
   height: 60px;
 }
 
+
 /* Alert Styling */
 .close {
   position: absolute;
@@ -274,6 +345,7 @@ img.circle.responsive-img.left , img.circle.responsive-img.right {
   animation-fill-mode: forwards;
   animation-duration: 2s;
 }
+
 
 /* Flash Styling */
 .flash {
