@@ -288,8 +288,14 @@ table.responsive-table thead {
 }
 
 img.coin-img.responsive-img{
-  height: 200px;
-  width: 200px;
+  /* height: 200px;
+  width: 200px; */
+  padding: 0px 40px;
+  margin-bottom: 30px;
+}
+
+.search-gen-info {
+  height: inherit !important;
 }
 
 

@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Charts
 document.addEventListener('DOMContentLoaded', () => {
 	let tickLabels = [...document.querySelectorAll('.tick-symbols')].map(ticker => ticker.innerText);
-  let pctChanges = [...document.querySelectorAll('.pct-change')].map(pct => +pct.innerText.substring(0, pct.innerText.length - 1));
-  let bgColors = pctChanges.map(pct => pct > 0 ? 'rgb(0, 128, 0)' : 'rgb(178, 34, 34)');
-  let borderColors = bgColors.map(bgc => bgc === 'rgb(0, 128, 0)' ? 'rgb(0, 32, 0)' : 'rgb(44.5, 8.5, 8.5)');
+	let pctChanges = [...document.querySelectorAll('.pct-change')].map(pct => +pct.innerText.substring(0, pct.innerText.length - 1));
+	let bgColors = pctChanges.map(pct => pct > 0 ? 'rgb(0, 128, 0)' : 'rgb(178, 34, 34)');
+	let borderColors = bgColors.map(bgc => bgc === 'rgb(0, 128, 0)' ? 'rgb(0, 32, 0)' : 'rgb(44.5, 8.5, 8.5)');
 
-  const ctx = document.getElementById('top10Chart');
-  let myChart = new Chart(ctx, {
+	const ctx = document.getElementById('top10Chart');
+	new Chart(ctx, {
       type: 'bar',
       data: {
           labels: tickLabels,
@@ -49,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
                   ticks: {
                       beginAtZero:true
                   }
-              }]
-          }
-      }
-  });
+				}]
+			}
+		}
+	});
 
 });
 
