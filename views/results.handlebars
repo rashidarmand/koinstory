@@ -8,7 +8,7 @@
           <img class="coin-img responsive-img" src={{ general.image }} alt="coin-image">
         </div>
         <div class="col s12 m7 search-gen-info">
-          <h2>Details</h2>
+          <h3>General Info</h3>
           <table class="centered">
             <thead>
               <tr>
@@ -24,21 +24,79 @@
             </tbody>
           </table>
           <br/>
-          <!--  @TODO : make this button add the coin to the user's portfolio or maybe open a modal so they can enter the quantity -->
-          <button class="waves-effect waves-light btn">Add To Portfolio</button>       
+          {{!-- Only show button if coin not in portfolio --}}
+          {{#inPortfolio user.portfolio general.symbol }}
+          <button data-target="modal1" class="waves-effect waves-light btn modal-trigger">Add To Portfolio</button>  
+          {{/inPortfolio }}     
         </div>
-      </div>
-
-      
+      </div>     
     </div>
   </div>
   <div class="row">
-    <div class="col s12">
-      <canvas id="coinLineChart" width="400" height="400"></canvas>
-      {{!-- {{prices.open}} Integrate Real Data later on --}}
+    <div class="col s12 center-align">
+      <h3>Price Info</h3>
+        <table class="centered">
+          <thead>
+            <tr>
+              <th>Market Cap</th>
+              <th>Current Price</th>
+              <th>24hr Low</th>
+              <th>24hr High</th>
+              <th>24hr Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <td>{{ price.MKTCAP }}</td>
+            <td>{{ price.PRICE }}</td>
+            <td>{{ price.LOW24HOUR }}</td>
+            <td>{{ price.HIGH24HOUR }}</td>
+            {{#isLoss price.CHANGEPCT24HOUR}}
+            <td><span class="loss pct-change">{{ price.CHANGEPCT24HOUR }} %</span></td>
+            {{else}}
+            <td><span class="gain pct-change">{{ price.CHANGEPCT24HOUR }} %</span></td>
+            {{/isLoss}}
+          </tbody>
+        </table>
+      <br/>
+      <p>
+        Price data courtesy of {{ price.MARKET }}. <br/> last updated {{ price.LASTUPDATE }}.
+      </p>
+    </div>
+  </div> 
+</div>
+
+
+{{!-- MODAL --}}
+<div class="modal black fadeInUp center-align" id="modal1">
+  <div class="row white-text">
+    <h3 class="center-align">Add {{ general.symbol }} to Portfolio</h3>
+    <form action="/addToPortfolio" method="post">
+    <input type="hidden" name="symbol" value={{ general.symbol }}> 
+    <div class="col push-s2 s8">
+      <h6>Quantity - Min(0.000000001)</h6>
+      <input type="number" name="quantity" id="title" placeholder="0.000000001" min="0.000000001" step="0.000000001" required>
     </div>
   </div>
-  
-  
+  <div class="row white-text">
+    <div class="col push-s2 s8">
+      <h6>USD Purchase Price - E.g ($275.88)</h6>
+      <input type="number" name="usd_purchase_price" id="title" placeholder="275.88" min="0.01" step="0.01" required>
+    </div>
+  </div>
+  <div class="row white-text">
+    <div class="col push-s2 s8">
+      <h6>Purchase Date</h6>
+      <input type="date" name="purchase_date" id="title" required>
+       <br><br>
+    </div>
+  </div>
+  <div class="row white-text">
+      <div class="center-align">
+        <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Add {{ general.symbol }}</button>
+      </div>
+    </form>
+  </div>
 </div>
+
+
 

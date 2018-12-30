@@ -12,7 +12,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/koinstory');
+mongoose.set('useCreateIndex', true);
+mongoose.connect('mongodb://localhost/koinstory', { useNewUrlParser: true });
 const db = mongoose.connection;
 
 const routes = require('./routes/index');
@@ -31,10 +32,15 @@ app.set('view engine', 'handlebars'); // Set view engine to handlebars
 app.engine('handlebars', exphbs({
 	defaultLayout:'layout', 
 	helpers: {
-		isLoss: function(value, options) { 
+		isLoss(value, options) { 
 			return value[0] === '-'
 				? options.fn(this)
 				: options.inverse(this);
+		},
+		inPortfolio(portfolio, value, options) {
+			if(portfolio.every(coin => coin.symbol !== value)) {
+				return options.fn(this);
+			}
 		}
 	}
 })); 
