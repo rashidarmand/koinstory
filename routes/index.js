@@ -17,113 +17,77 @@ const ensureAuthenticated = (req, res, next) => {
 // Render the Homepage
 // ** New **
 router.get('/', ensureAuthenticated, (req, res) => {
-	// Gave me the user
-	// console.log(req.user);
 	const { portfolio } = req.user;
-	// console.log(portfolio);
 
-	// Calculcate Total Value of Portfolio
-	// let portfolioTotal = portfolio.reduce((prev, next) => {
-	// 	const coinQuantity = next.buys.reduce((prev, next) => prev + +next.quantity, 0);
-	// 	const coinUSDAmount = next.buys.reduce((prev, next) => prev + +next.usd_purchase_price, 0);
-	// 	const coinTotalVal = coinQuantity * coinUSDAmount;
-	// 	return prev + coinTotalVal;
-	// }, 0);
-
-	// portfolioTotal = numeral(portfolioTotal).format('$0,0.00');
-	// console.log('portfolio total', portfolioTotal);
-
-	// let coinSymbols = portfolio.map(coin => coin.symbol).join();
-	// console.log(coinSymbols);
-
-	// Promise.all([])
-
-	const calculatePortfolioTotal = async (portfolio) => {
+	const analyzePortfolio = async (portfolio) => {
 		try {
 			// Get just the symbols for each coin in the portfolio
 			const coinSymbols = portfolio.map(coin => coin.symbol);
 			// Join all coin symbols together for use in fetch statement
-			const cS = coinSymbols.join();
+			const query = coinSymbols.join();
 			// Request the coin data
-			const coinDataRequest = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cS}&tsyms=USD`)
+			const coinDataRequest = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${ query }&tsyms=USD`)
 				.then(res => res.json());
 			// Create a new array with the current price of each coin in the portfolio
 			const currentPrices = coinSymbols.map(symbol => {
 				return {
 					symbol,
-					currentPrice: coinDataRequest.RAW[`${ symbol }`].USD.PRICE
+					currentPrice: coinDataRequest.RAW[`${ symbol }`].USD.PRICE,
+					change24hr: coinDataRequest.DISPLAY[`${ symbol }`].USD.CHANGEPCT24HOUR,
+					currentValue: null,
+					holdings: null
 				};
 			});
 			// Multiply the current price of each coin by the quantity of each coin to get current portfolio value
-			// @TODO: reassign currentPortfolio value to itself with numeral formatting.
 			let currentPortfolioValue = portfolio.reduce((prev, next) => {
+				const cpInfo = currentPrices.find(coin => coin.symbol === next.symbol);
 				const coinQuantity = next.buys.reduce((prev, next) => prev + +next.quantity, 0);
-				const coinCurrentPrice = currentPrices.find(coin => coin.symbol === next.symbol).currentPrice;
-				const coinCurrentTotalVal = coinQuantity * coinCurrentPrice;
-				return prev + coinCurrentTotalVal; 
+				const coinCurrentPrice = cpInfo.currentPrice;
+				const coinCurrentValue = coinQuantity * coinCurrentPrice;
+				cpInfo.currentValue = numeral(coinCurrentValue).format('$0,0.00');
+				cpInfo.holdings = coinQuantity;
+				return prev + coinCurrentValue; 
 			}, 0);
+			// Formatting Value
+			currentPortfolioValue = numeral(currentPortfolioValue).format('$0,0.00');
 			// Subtract average purchase price of each coin from current price and divide that by average purchase price to get Gain/Loss %.
-			const analyzePortfolioPerformance = portfolio.reduce((prev, next) => {
+			const calculatePerformance = portfolio.reduce((prev, next) => {
 				const coinAvgPurchasePrice = next.buys.reduce((prev, next) => {
 					return prev + +next.usd_purchase_price;
 				}, 0) / next.buys.length;
 				const coinCurrentPrice = currentPrices.find(coin => coin.symbol === next.symbol).currentPrice.toFixed(2);
 				const gainLoss = coinCurrentPrice - coinAvgPurchasePrice;
 				const pctChange = gainLoss / coinAvgPurchasePrice;
-				// Changing gain loss to string for manipulation of how data is displayed
-				const displayGL = gainLoss.toString();
+				const displayGL = numeral(gainLoss).format('$0,0.00');
+				const displayPctChange = numeral(pctChange).format('0,0.00%');
 
 				prev.push({
 					symbol: next.symbol,
-					gainLoss: displayGL.charAt(0) === '-' 
-						? displayGL.charAt(0) + '$' + displayGL.substring(1)
-						: '$' + displayGL,
-					pctChange: numeral(pctChange).format('0,0.00%')
+					gainLoss: displayGL,
+					pctChange: displayPctChange,
+					averagePurchasePrice: coinAvgPurchasePrice,
+					purchaseHistory: next.buys
 				});
 
 				return prev;
 			}, []);
-
-			console.log('PORTFOLIO PERFORMANCE:  ', analyzePortfolioPerformance);
-			// @TODO: give portfolio performance and total value to view for displaying
-			// @TODO: add modal forms for updating/adding coin purchases and deleting them
-
-
+			
+			return {
+				totalVal: currentPortfolioValue,
+				performance: calculatePerformance,
+				currentPrices
+			};
 		} catch(e) {
 			console.log({ Error: e });
 		}
 	};
 
-	calculatePortfolioTotal(portfolio)
-
-
-
-
-
-
-	const getTop10 = async () => {
-		const top10 = await fetch('https://api.coinmarketcap.com/v2/ticker/?start=1&limit=10')
-			.then(res => res.json());
-	
-		const formattedTop10 = (({ data }) => {
-			const top10CoinList = [];
-			for(let coin in data) {
-				top10CoinList.push({
-					name: data[coin].name,
-					symbol: data[coin].symbol,
-					price: numeral(data[coin].quotes.USD.price).format('$0,0.00'),
-					change24h: data[coin].quotes.USD.percent_change_24h + ' %'
-				});
-			}   
-			return top10CoinList;
-		});
-	
-		return formattedTop10(top10);
-	};
-	
-	getTop10()
-		.then( top10Coins => res.render('index', { coins: top10Coins }) )
-		.catch( e => res.render('markets', { error: e }) );
+	analyzePortfolio(portfolio)
+		.then(data => {
+			console.log(data);
+			res.render('index', { portfolio: data });
+		})
+		.catch(e => res.render('index', { error: e }));
 });
 
 // New
