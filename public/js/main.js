@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 	} else if(currentPath === '/markets') {
-		const tickLabels = [...document.querySelectorAll('.tick-symbols')].map(ticker => ticker.innerText);
-		const pctChanges = [...document.querySelectorAll('.pct-change')].map(pct => +pct.innerText.substring(0, pct.innerText.length - 1));
+		const tickLabels = [...document.getElementsByClassName('tick-symbols')].map(ticker => ticker.innerText);
+		const pctChanges = [...document.getElementsByClassName('pct-change')].map(pct => +pct.innerText.substring(0, pct.innerText.length - 1));
 		const bgColors = pctChanges.map(pct => pct > 0 ? 'rgb(0, 128, 0)' : 'rgb(178, 34, 34)');
 		const borderColors = bgColors.map(bgc => bgc === 'rgb(0, 128, 0)' ? 'rgb(0, 32, 0)' : 'rgb(44.5, 8.5, 8.5)');
 

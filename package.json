@@ -24,6 +24,7 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "method-override": "^3.0.0",
     "mongodb": "*",
     "mongoose": "*",
     "node-fetch": "^2.3.0",

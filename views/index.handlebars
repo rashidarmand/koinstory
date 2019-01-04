@@ -8,7 +8,6 @@
     <ul>
       <li><h5>Total Portfolio Value:</h5> <h3>{{ portfolio.totalVal }}</h3></li>
       <li><h5>Coins Owned:</h5> <h3>{{ user.portfolio.length }}</h3></li>
-      {{!-- <li>Most Profitable Coin: Bitcoin</li> --}}
     </ul>
     <br>
   </p>
@@ -16,7 +15,7 @@
 
 <div class="col s12 black white-text">
   <h2 class="center-align"><u>My Portfolio</u></h2>
-  <table class="highlight responsive-table">
+  <table class="highlight responsive-table centered">
     <thead>
       <tr>
         <th>Coin</th>
@@ -33,7 +32,7 @@
       {{#each portfolio.currentPrices}}
       <tr>
         <td>{{ symbol }}</td>
-        <td>${{ currentPrice }}</td>
+        <td>{{ currentPrice }}</td>
         {{#isLoss change24hr}}
         <td><span class="loss">{{ change24hr }} %</span></td>
         {{else}}
@@ -42,7 +41,12 @@
         <td>{{ holdings }}</td>
         <td>{{ currentValue }}</td>
         <td><button data-target="modal1" id={{ symbol }} class="waves-effect waves-light btn modal-trigger"><i class="material-icons">add</i></button></td>
-        <td><button id={{ symbol }} class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button></td>
+        <td>
+          <form action="/deleteFromPortfolio?_method=DELETE" method="post">
+            <input type="hidden" name="coinToDelete" value={{ symbol }}>
+            <button id={{ symbol }} class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
+          </form>
+        </td>
       </tr>
       {{/each}}
     </tbody>
@@ -86,7 +90,7 @@
   </div>
   <div class="col s12">
     <h5>Purchase History</h5>
-    {{#each purchaseHistory}}
+    
       <table class="centered highlight responsive-table">
         <thead>
           <tr>
@@ -97,15 +101,22 @@
           </tr>
         </thead>
         <tbody>
+          {{#each purchaseHistory}}
           <tr>
             <td>{{ quantity }}</td>
             <td>${{ usd_purchase_price }}</td>
             <td>{{ purchase_date }}</td>
-            <td><button class="waves-effect waves-light btn"><i class="material-icons">mode_edit</i></button></td>
+            <td>
+              <form action="/deleteFromPortfolio?_method=DELETE" method="post">
+                {{!-- <input type="hidden" name="coinToDelete" value={{ symbol }}> --}}
+                <button class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
+              </form>
+            </td>
           </tr>
+          {{/each}}
         </tbody>
       </table>
-    {{/each}}
+    
     <br/><br/> <hr/>
   </div>
   <br/>

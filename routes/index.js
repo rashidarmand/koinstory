@@ -72,6 +72,9 @@ router.get('/', ensureAuthenticated, (req, res) => {
 				return prev;
 			}, []);
 			
+			// Format Values
+			currentPrices.forEach(coin => coin.currentPrice = numeral(coin.currentPrice).format('$0,0.00'));
+
 			return {
 				totalVal: currentPortfolioValue,
 				performance: calculatePerformance,
@@ -84,7 +87,6 @@ router.get('/', ensureAuthenticated, (req, res) => {
 
 	analyzePortfolio(portfolio)
 		.then(data => {
-			console.log(data);
 			res.render('index', { portfolio: data });
 		})
 		.catch(e => res.render('index', { error: e }));
@@ -187,12 +189,24 @@ router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
 	const { user } = req;
 
 	// Search for a user via username and add coin to portfolio. Show error, if there is one.
+	// If coin already present in portfolio, add purchase details to buys array
 	User.findOne({ username: user.username })
 		.then(u => {
-			u.portfolio = [...u.portfolio, coin];
-			u.save();
-			req.flash('success_message', 	`${ symbol } successfully added to portfolio !`);
-			res.redirect('/');
+			const updatedPortfolio = [...user.portfolio];
+			const existingCoin = updatedPortfolio.find(val => val.symbol === coin.symbol);
+
+			if(existingCoin) {
+				existingCoin.buys.push(purchase_details); 
+				u.portfolio = updatedPortfolio;
+				u.save();
+				req.flash('success_message', 	`Successfully added new purchase of ${ symbol } to portfolio !`);
+				res.redirect('/');
+			} else {
+				u.portfolio = [...u.portfolio, coin];
+				u.save();
+				req.flash('success_message', 	`${ symbol } successfully added to portfolio !`);
+				res.redirect('/');
+			}
 		})
 		.catch(e => {
 			console.log(e);
@@ -200,6 +214,29 @@ router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
 			res.redirect('/');
 		});
 
+});
+
+// Remove Coin from Portfolio
+router.delete('/deleteFromPortfolio', ensureAuthenticated, (req, res) => {
+	const { user } = req;
+	const { coinToDelete } = req.body;
+
+	// @TODO
+	// Uniquely identify previous purchase to delete it.
+	
+	User.findOne({ username: user.username })
+		.then(u => {
+			const updatedPortfolio = user.portfolio.filter(coin => coin.symbol !== coinToDelete);
+			u.portfolio = updatedPortfolio;
+			u.save();
+			req.flash('success_message', 	`${ coinToDelete } successfully deleted from portfolio !`);
+			res.redirect('/');
+		})
+		.catch(e => {
+			console.log(e);
+			req.flash('error_message', `Could not delete ${ coinToDelete } from portfolio`);
+			res.redirect('/');
+		});
 });
 
 module.exports = router;

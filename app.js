@@ -1,6 +1,7 @@
 // Require Packages
 const express = require('express');
 const path = require('path');
+const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
@@ -49,6 +50,9 @@ app.engine('handlebars', exphbs({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Enable use of DELETE / PUT methods in HTML forms
+app.use(methodOverride('_method'));
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public'))); // set public folder to be used for holding static files
