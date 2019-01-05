@@ -2,6 +2,7 @@ const router = require('express').Router();
 const fetch = require('node-fetch');
 const numeral = require('numeral');
 const User = require('../models/user');
+const uuidv4 = require('uuid/v4');
 
 
 // If user is authenticated, continue, otherwise redirect to login and display error
@@ -181,6 +182,7 @@ router.post('/search', ensureAuthenticated, (req, res) => {
 router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
 	// Destructuring values that I need from the request.
 	const { symbol, ...purchase_details } = req.body;
+	purchase_details.id = uuidv4();
 	const coin = { 
 		symbol, 
 		buys : [ purchase_details ],

@@ -31,7 +31,8 @@
     "numeral": "^2.0.6",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"
