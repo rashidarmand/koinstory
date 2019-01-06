@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 		if(ctx) {
+			// @TODO
+			//  decide which color scheme to use for pie chart
 			// const colors = ['rgb(0,90,65)', 'rgb(242,242,242)', 'rgb(241, 160, 66)'];
 			const colors = ['#6699cc', '#fff275', '#ff8c42', '#ff3c38', '#a23e48'];
 			const holdings = [...document.getElementsByClassName('currentVal')].map(val => +val.innerText.substring(1).replace(',',''));
