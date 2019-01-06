@@ -43,6 +43,10 @@ nav {
   background-color: black;
 }
 
+/* nav a {
+  text-decoration: none;
+} */
+
 div.nav-wrapper.hide-on-med-and-down {
   padding-left: 300px;
 }
@@ -89,6 +93,7 @@ ul#big-screen-side-nav.sidenav {
 
 ul#big-screen-side-nav.sidenav li a {
   font-size: 1.5rem;
+  text-decoration: none;
 }
 
 ul#big-screen-side-nav.sidenav li a:hover {
@@ -102,6 +107,7 @@ ul#mobile-demo.sidenav {
 
 ul#mobile-demo.sidenav li a {
   font-size: 1.5rem;
+  text-decoration: none;
 }
 
 ul#mobile-demo.sidenav li a:hover {
@@ -173,14 +179,6 @@ a:active {
   background-color: transparent;
   text-decoration: underline;
 }
-
-
-
-/* Chart Styling */
-/* .top10ChartContainer {
-  height: 400px;
-} */
-
 
 /* Form styling */
 input#username , input#password, input#first_name, input#last_name, input#email, input#birthday, input#display_name, input#title, textarea.materialize-textarea, input#new_password, input#new_password2, input#display_name {
@@ -273,6 +271,10 @@ table.responsive-tabler thead {
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+.room-btm {
+  margin-bottom: 13px;
+}
+
 .gain{
   background: green;
   color: #F2F2F2;
@@ -334,6 +336,16 @@ a.post-link {
 
 img.circle.responsive-img.left , img.circle.responsive-img.right {
   height: 60px;
+}
+
+#scrollToTop {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 23px;
+  animation: fadeInRight;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
 }
 
 

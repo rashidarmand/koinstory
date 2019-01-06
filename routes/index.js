@@ -66,7 +66,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
 					symbol: next.symbol,
 					gainLoss: displayGL,
 					pctChange: displayPctChange,
-					averagePurchasePrice: coinAvgPurchasePrice,
+					averagePurchasePrice: numeral(coinAvgPurchasePrice).format('$0,0.00'),
 					purchaseHistory: next.buys
 				});
 
@@ -179,9 +179,10 @@ router.post('/search', ensureAuthenticated, (req, res) => {
 	}
 });
 
+// Add Coins / Additional Holdings to Portfolio
 router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
-	// Destructuring values that I need from the request.
 	const { symbol, ...purchase_details } = req.body;
+	// Add unique id to purchase details to enable it to be easily identified for deletion
 	purchase_details.id = uuidv4();
 	const coin = { 
 		symbol, 
@@ -204,7 +205,7 @@ router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
 				req.flash('success_message', 	`Successfully added new purchase of ${ symbol } to portfolio !`);
 				res.redirect('/');
 			} else {
-				u.portfolio = [...u.portfolio, coin];
+				u.portfolio = [...user.portfolio, coin];
 				u.save();
 				req.flash('success_message', 	`${ symbol } successfully added to portfolio !`);
 				res.redirect('/');
@@ -218,25 +219,34 @@ router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
 
 });
 
-// Remove Coin from Portfolio
+// Remove Coin / Purchase from Portfolio
 router.delete('/deleteFromPortfolio', ensureAuthenticated, (req, res) => {
 	const { user } = req;
-	const { coinToDelete } = req.body;
-
-	// @TODO
-	// Uniquely identify previous purchase to delete it.
+	const { toBeDeleted } = req.body; // ID's are longer than 10
 	
 	User.findOne({ username: user.username })
 		.then(u => {
-			const updatedPortfolio = user.portfolio.filter(coin => coin.symbol !== coinToDelete);
+			const	updatedPortfolio = toBeDeleted.length > 10
+				? user.portfolio.filter(coin => {
+					// filter out the purchase to be delated from all coin buys
+					coin.buys = coin.buys.filter(purchase => purchase.id !== toBeDeleted);
+					// only return coins who still have buys
+					return coin.buys.length > 0;
+				})
+				: user.portfolio.filter(coin => coin.symbol !== toBeDeleted);
+
+			const updateMessage = toBeDeleted.length > 10
+				? 'Purchase successfully removed !'
+				: `${ toBeDeleted } successfully deleted from portfolio !`;
+
 			u.portfolio = updatedPortfolio;
 			u.save();
-			req.flash('success_message', 	`${ coinToDelete } successfully deleted from portfolio !`);
+			req.flash('success_message', 	updateMessage);
 			res.redirect('/');
 		})
 		.catch(e => {
 			console.log(e);
-			req.flash('error_message', `Could not delete ${ coinToDelete } from portfolio`);
+			req.flash('error_message', `Could not delete ${ toBeDeleted } from portfolio`);
 			res.redirect('/');
 		});
 });

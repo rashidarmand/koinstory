@@ -7,14 +7,16 @@
     <h3>This is your <span class="green-letter">S</span>tory!</h3><br>
     <ul>
       <li><h5>Total Portfolio Value:</h5> <h3>{{ portfolio.totalVal }}</h3></li>
+      <li><canvas id='portfolioPie'></canvas></li>
       <li><h5>Coins Owned:</h5> <h3>{{ user.portfolio.length }}</h3></li>
     </ul>
     <br>
+    
   </p>
 </div>
 
-<div class="col s12 black white-text">
-  <h2 class="center-align"><u>My Portfolio</u></h2>
+<div class="col s12 black white-text room-btm">
+  <h2 class="center-align">My Portfolio</h2>
   <table class="highlight responsive-table centered">
     <thead>
       <tr>
@@ -31,7 +33,7 @@
     <tbody>
       {{#each portfolio.currentPrices}}
       <tr>
-        <td>{{ symbol }}</td>
+        <td class="portfolioCoinSymbol">{{ symbol }}</td>
         <td>{{ currentPrice }}</td>
         {{#isLoss change24hr}}
         <td><span class="loss">{{ change24hr }} %</span></td>
@@ -39,11 +41,11 @@
         <td><span class="gain">{{ change24hr }} %</span></td>
         {{/isLoss}}
         <td>{{ holdings }}</td>
-        <td>{{ currentValue }}</td>
+        <td class="currentVal">{{ currentValue }}</td>
         <td><button data-target="modal1" id={{ symbol }} class="waves-effect waves-light btn modal-trigger"><i class="material-icons">add</i></button></td>
         <td>
           <form action="/deleteFromPortfolio?_method=DELETE" method="post">
-            <input type="hidden" name="coinToDelete" value={{ symbol }}>
+            <input type="hidden" name="toBeDeleted" value={{ symbol }}>
             <button id={{ symbol }} class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
           </form>
         </td>
@@ -56,8 +58,7 @@
 
 
 <div class="col s12 black white-text center-align">
-  <hr/>
-  <h2><u>My Performance</u></h2>
+  <h2>My Performance</h2>
   {{#each portfolio.performance}}
   <div class="col s12">
     <h3>Coin: {{ symbol }}</h3>
@@ -72,7 +73,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>${{ averagePurchasePrice }}</td>
+          <td>{{ averagePurchasePrice }}</td>
           {{#isLoss gainLoss}}
           <td><span class="loss">{{ gainLoss }}</span></td>
           {{else}}
@@ -97,7 +98,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Date</th>
-            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -108,7 +109,8 @@
             <td>{{ purchase_date }}</td>
             <td>
               <form action="/deleteFromPortfolio?_method=DELETE" method="post">
-                {{!-- <input type="hidden" name="coinToDelete" value={{ symbol }}> --}}
+                <input type="hidden" name="toBeDeleted" value={{ id }}>
+                <input type="hidden" name="coin" value={{ symbol }}>
                 <button class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
               </form>
             </td>
@@ -117,7 +119,7 @@
         </tbody>
       </table>
     
-    <br/><br/> <hr/>
+    <br/><hr/>
   </div>
   <br/>
   {{/each}}
