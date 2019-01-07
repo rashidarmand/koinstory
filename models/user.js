@@ -49,6 +49,20 @@ module.exports.comparePassword = (enteredPassword, hash, callback) => {
 	});
 };
 
+// Promise based version of the above comparePassword function
+module.exports.passwordCompare = (enteredPassword, hash) => Promise.resolve(bcrypt.compare(enteredPassword, hash));
+
+// Promise based version of bcrypt hashing
+module.exports.encryptPassword = (password) => {
+	return new Promise((resolve, reject) => {
+		bcrypt.genSalt(10, (err, salt) => {
+			bcrypt.hash(password, salt, (err, hash) => {
+				err ? reject(err) : resolve(hash);
+			});
+		});
+	});
+};
+
 // Searching for a user via mongoose 'findById' method
 module.exports.getUserById = (id, callback)=>{
 	User.findById(id, callback);

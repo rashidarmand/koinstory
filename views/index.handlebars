@@ -1,162 +1,175 @@
 {{!-- INDEX --}}
-<br>
-<div class="black white-text center-align fadeInDown">
+{{#if user.portfolio}}
   <br>
-  <h1><span class="green-letter">W</span>elcome <strong>{{user.username}}</strong></h1>
-  <p>
-    <h3>This is your <span class="green-letter">S</span>tory!</h3><br>
-    <ul>
-      <li><h5>Total Portfolio Value:</h5> <h3>{{ portfolio.totalVal }}</h3></li>
-      <li><canvas id='portfolioPie'></canvas></li>
-      <li><h5>Coins Owned:</h5> <h3>{{ user.portfolio.length }}</h3></li>
-    </ul>
+  <div class="black white-text center-align fadeInRight">
     <br>
-    
-  </p>
-</div>
-
-<div class="col s12 black white-text room-btm">
-  <h2 class="center-align">My Portfolio</h2>
-  <table class="highlight responsive-table centered">
-    <thead>
-      <tr>
-        <th>Coin</th>
-        <th>Trade Price</th>
-        <th>24hr Change</th>
-        <th>Holdings</th>
-        <th>Value</th>
-        <th>Add</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {{#each portfolio.currentPrices}}
-      <tr>
-        <td class="portfolioCoinSymbol">{{ symbol }}</td>
-        <td>{{ currentPrice }}</td>
-        {{#isLoss change24hr}}
-        <td><span class="loss">{{ change24hr }} %</span></td>
-        {{else}}
-        <td><span class="gain">{{ change24hr }} %</span></td>
-        {{/isLoss}}
-        <td>{{ holdings }}</td>
-        <td class="currentVal">{{ currentValue }}</td>
-        <td><button data-target="modal1" id={{ symbol }} class="waves-effect waves-light btn modal-trigger"><i class="material-icons">add</i></button></td>
-        <td>
-          <form action="/deleteFromPortfolio?_method=DELETE" method="post">
-            <input type="hidden" name="toBeDeleted" value={{ symbol }}>
-            <button id={{ symbol }} class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
-          </form>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  <br>
-</div>
-
-
-<div class="col s12 black white-text center-align">
-  <h2>My Performance</h2>
-  {{#each portfolio.performance}}
-  <div class="col s12">
-    <h3>Coin: {{ symbol }}</h3>
-    <h5>Returns</h5>
-    <table class="centered">
-      <thead>
-        <tr>
-          <th>Average Purchase</th>
-          <th>Gain / Loss</th>
-          <th>ROI</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ averagePurchasePrice }}</td>
-          {{#isLoss gainLoss}}
-          <td><span class="loss">{{ gainLoss }}</span></td>
-          {{else}}
-          <td><span class="gain">{{ gainLoss }}</span></td>
-          {{/isLoss}}
-          {{#isLoss pctChange}}
-          <td><span class="loss">{{ pctChange }}</span></td>
-          {{else}}
-          <td><span class="gain">{{ pctChange }}</span></td>
-          {{/isLoss}}
-        </tr>
-      </tbody>
-    </table>
+    <h2><span class="green-letter">W</span>elcome <strong>{{user.username}}</strong></h2>
+    <p>
+      <h5>You must add coins to your portfolio to see performance</h5>
+      <h5>Try searching for a ticker symbol above 👆</h5>
+    </p>
     <br/>
   </div>
-  <div class="col s12">
-    <h5>Purchase History</h5>
-    
-      <table class="centered highlight responsive-table">
+{{else}}
+  <br>
+  <div class="black white-text center-align fadeInRight">
+    <br>
+    <h1><span class="green-letter">W</span>elcome <strong>{{user.username}}</strong></h1>
+    <p>
+      <h3>This is your <span class="green-letter">S</span>tory!</h3><br>
+      <ul>
+        <li><h5>Total Portfolio Value:</h5> <h3>{{ portfolio.totalVal }}</h3></li>
+        <li><canvas id='portfolioPie'></canvas></li>
+        <li><h5>Coins Owned:</h5> <h3>{{ user.portfolio.length }}</h3></li>
+      </ul>
+      <br>
+      
+    </p>
+  </div>
+
+  <div class="col s12 black white-text room-btm fadeInLeft">
+    <h2 class="center-align">My Portfolio</h2>
+    <table class="highlight responsive-table centered">
+      <thead>
+        <tr>
+          <th>Coin</th>
+          <th>Trade Price</th>
+          <th>24hr Change</th>
+          <th>Holdings</th>
+          <th>Value</th>
+          <th>Add</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each portfolio.currentPrices}}
+        <tr>
+          <td class="portfolioCoinSymbol">{{ symbol }}</td>
+          <td>{{ currentPrice }}</td>
+          {{#isLoss change24hr}}
+          <td><span class="loss">{{ change24hr }} %</span></td>
+          {{else}}
+          <td><span class="gain">{{ change24hr }} %</span></td>
+          {{/isLoss}}
+          <td>{{ holdings }}</td>
+          <td class="currentVal">{{ currentValue }}</td>
+          <td><button data-target="modal1" id={{ symbol }} class="waves-effect waves-light btn modal-trigger"><i class="material-icons">add</i></button></td>
+          <td>
+            <form action="/deleteFromPortfolio?_method=DELETE" method="post">
+              <input type="hidden" name="toBeDeleted" value={{ symbol }}>
+              <button id={{ symbol }} class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <br>
+  </div>
+
+
+  <div class="col s12 black white-text center-align fadeInRight">
+    <h2>My Performance</h2>
+    {{#each portfolio.performance}}
+    <div class="col s12">
+      <h3>Coin: {{ symbol }}</h3>
+      <h5>Returns</h5>
+      <table class="centered">
         <thead>
           <tr>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Date</th>
-            <th>Delete</th>
+            <th>Average Purchase</th>
+            <th>Gain / Loss</th>
+            <th>ROI</th>
           </tr>
         </thead>
         <tbody>
-          {{#each purchaseHistory}}
           <tr>
-            <td>{{ quantity }}</td>
-            <td>${{ usd_purchase_price }}</td>
-            <td>{{ purchase_date }}</td>
-            <td>
-              <form action="/deleteFromPortfolio?_method=DELETE" method="post">
-                <input type="hidden" name="toBeDeleted" value={{ id }}>
-                <input type="hidden" name="coin" value={{ symbol }}>
-                <button class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
-              </form>
-            </td>
+            <td>{{ averagePurchasePrice }}</td>
+            {{#isLoss gainLoss}}
+            <td><span class="loss">{{ gainLoss }}</span></td>
+            {{else}}
+            <td><span class="gain">{{ gainLoss }}</span></td>
+            {{/isLoss}}
+            {{#isLoss pctChange}}
+            <td><span class="loss">{{ pctChange }}</span></td>
+            {{else}}
+            <td><span class="gain">{{ pctChange }}</span></td>
+            {{/isLoss}}
           </tr>
-          {{/each}}
         </tbody>
       </table>
-    
-    <br/><hr/>
+      <br/>
+    </div>
+    <div class="col s12">
+      <h5>Purchase History</h5>
+      
+        <table class="centered highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Date</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each purchaseHistory}}
+            <tr>
+              <td>{{ quantity }}</td>
+              <td>${{ usd_purchase_price }}</td>
+              <td>{{ purchase_date }}</td>
+              <td>
+                <form action="/deleteFromPortfolio?_method=DELETE" method="post">
+                  <input type="hidden" name="toBeDeleted" value={{ id }}>
+                  <input type="hidden" name="coin" value={{ symbol }}>
+                  <button class="waves-effect waves-light btn"><i class="material-icons">delete_forever</i></button>
+                </form>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      
+      <br/><hr/>
+    </div>
+    <br/>
+    {{/each}}
+    <br/>
   </div>
-  <br/>
-  {{/each}}
-  <br/>
-</div>
 
 
-{{!-- MODAL --}}
-<div class="modal black fadeInUp center-align" id="modal1">
-  <div class="row white-text">
-    <h3 class="center-align">Add New Purchase of <span class="selectedCoin"></span></h3>
-    <form action="/addToPortfolio" method="post">
-    <input type="hidden" name="symbol" id="selectedCoin" > 
-    <div class="col push-s2 s8">
-      <h6>Quantity - Min(0.000000001)</h6>
-      <input type="number" name="quantity" id="title" placeholder="0.000000001" min="0.000000001" step="0.000000001" required>
-    </div>
-  </div>
-  <div class="row white-text">
-    <div class="col push-s2 s8">
-      <h6>USD Purchase Price - E.g ($275.88)</h6>
-      <input type="number" name="usd_purchase_price" id="title" placeholder="275.88" min="0.01" step="0.01" required>
-    </div>
-  </div>
-  <div class="row white-text">
-    <div class="col push-s2 s8">
-      <h6>Purchase Date</h6>
-      <input type="date" name="purchase_date" id="title" required>
-       <br><br>
-    </div>
-  </div>
-  <div class="row white-text">
-      <div class="center-align">
-        <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Add <span class="selectedCoin"></span></button>
+  {{!-- MODAL --}}
+  <div class="modal black fadeInUp center-align" id="modal1">
+    <div class="row white-text">
+      <h3 class="center-align">Add New Purchase of <span class="selectedCoin"></span></h3>
+      <form action="/addToPortfolio" method="post">
+      <input type="hidden" name="symbol" id="selectedCoin" > 
+      <div class="col push-s2 s8">
+        <h6>Quantity - Min(0.000000001)</h6>
+        <input type="number" name="quantity" id="title" placeholder="0.000000001" min="0.000000001" step="0.000000001" required>
       </div>
-    </form>
+    </div>
+    <div class="row white-text">
+      <div class="col push-s2 s8">
+        <h6>USD Purchase Price - E.g ($275.88)</h6>
+        <input type="number" name="usd_purchase_price" id="title" placeholder="275.88" min="0.01" step="0.01" required>
+      </div>
+    </div>
+    <div class="row white-text">
+      <div class="col push-s2 s8">
+        <h6>Purchase Date</h6>
+        <input type="date" name="purchase_date" id="title" required>
+        <br><br>
+      </div>
+    </div>
+    <div class="row white-text">
+        <div class="center-align">
+          <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Add <span class="selectedCoin"></span></button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+{{/if}}
 
 

@@ -59,6 +59,10 @@ div.user-view {
   height: 175px;
 }
 
+#sidenavLogo {
+  border-radius: 0px;
+}
+
 .sidenav .user-view {
   margin: 0;
 }
@@ -146,6 +150,10 @@ div.nav-wrapper.mobile-search .input-field input[type=search]:focus:not(.browser
 
 
 /* Page Styling */
+div {
+  border-radius: 10px;
+}
+
 ::placeholder {
   color: #005a41;
 }

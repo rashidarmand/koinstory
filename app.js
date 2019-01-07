@@ -42,6 +42,11 @@ app.engine('handlebars', exphbs({
 			if(portfolio.every(coin => coin.symbol !== value)) {
 				return options.fn(this);
 			}
+		},
+		emptyPortfolio(portfolio, options) {
+			return portfolio.length === 0
+				? options.fn(this)
+				: options.inverse(this);
 		}
 	}
 })); 

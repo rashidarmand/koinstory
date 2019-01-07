@@ -15,8 +15,7 @@ const ensureAuthenticated = (req, res, next) => {
 	}
 };
 
-// Render the Homepage
-// ** New **
+// Render the homepage
 router.get('/', ensureAuthenticated, (req, res) => {
 	const { portfolio } = req.user;
 
@@ -93,7 +92,12 @@ router.get('/', ensureAuthenticated, (req, res) => {
 		.catch(e => res.render('index', { error: e }));
 });
 
-// New
+// Render settings page
+router.get('/settings', ensureAuthenticated, (req, res) => {
+	res.render('settings');
+});
+
+// Top 10 Coin Information
 router.get('/markets', (req, res) => {
 	const getTop10 = async () => {
 		const top10 = await fetch('https://api.coinmarketcap.com/v2/ticker/?start=1&limit=10')
@@ -120,7 +124,7 @@ router.get('/markets', (req, res) => {
 		.catch( e => res.render('markets', { error: e }) );
 });
 
-//  New 
+// Search for specific coin
 router.post('/search', ensureAuthenticated, (req, res) => {
 	let query = req.body.search;
 
@@ -248,6 +252,73 @@ router.delete('/deleteFromPortfolio', ensureAuthenticated, (req, res) => {
 			console.log(e);
 			req.flash('error_message', `Could not delete ${ toBeDeleted } from portfolio`);
 			res.redirect('/');
+		});
+});
+
+// Create post method/s for the updating of user's settings.
+router.put('/updateUser', ensureAuthenticated, (req, res) => {
+	const { user } = req;
+	const { newUsername, currentPassword, newPassword, confirmPassword  } = req.body;
+
+	User.findOne({ username: user.username })
+		.then(u => {
+			// If newUsername is defined, update it
+			if(newUsername) {
+				// Update the username
+				u.username = newUsername;
+				u.save();
+				req.flash('success_message', 	'Username Updated !');
+				res.redirect('/');
+			} else {
+				User.passwordCompare(currentPassword, u.password)
+					.then(valid => {
+						if(valid) {
+							if(newPassword === confirmPassword) {
+								User.encryptPassword(newPassword)
+									.then(hash => {
+										const newEncryptedPassword = hash;
+										u.password = newEncryptedPassword;
+										u.save();
+										req.flash('success_message', 	'Password Updated !');
+										res.redirect('/');
+									})
+									.catch(e => {
+										console.log(e);
+										req.flash('error_message', 'Error changing password !');
+										res.redirect('/settings');
+									});
+							} else {
+								req.flash('error_message', 'New passwords do not match !');
+								res.redirect('/settings');
+							}
+						} else {
+							req.flash('error_message', 'Invalid current password !');
+							res.redirect('/settings');
+						}
+					});
+			}
+		})
+		.catch(e => {
+			console.log(e);
+			req.flash('error_message', 'Could not update password');
+			res.redirect('/');
+		});	
+});
+
+router.delete('/deleteAccount', ensureAuthenticated, (req, res) => {
+	const { user } = req;
+	const { username, password } = req.body;
+
+	User.passwordCompare(password, user.password)
+		.then(valid => {
+			if(valid && username === user.username) {
+				User.findOneAndDelete({ _id: user._id });
+				req.flash('success_message', 	'Account sucessfully deleted !');
+				res.redirect('/settings');
+			} else {
+				req.flash('error_message', 'Incorrect username or password !');
+				res.redirect('/');
+			}
 		});
 });
 

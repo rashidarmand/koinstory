@@ -1,0 +1,50 @@
+<br/>
+<div class="row black white-text center-align fadeInLeft">
+  <div class="col s12">
+    <h1><span class="green-letter">S</span>ettings</h1>
+    <div class="row">
+      <div class="col s12">
+        <h3>Update Username</h3>
+        <div class="row white-text">
+          <div class="col push-s2 s8">
+            <form action="/updateUser?_method=PUT" method="post">
+              <h6>Enter New Username Below</h6>
+              <input type="text" name="newUsername" id="title" placeholder={{ user.username }} required/> <br><br>
+              <button class="waves-effect waves-light btn">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h3>Update Password</h3>
+        <div class="row white-text">
+          <div class="col push-s2 s8">
+            <form action="/updateUser?_method=PUT" method="post">
+              <input type="text" name="currentPassword" id="title" placeholder='Current Password' required/> <br><br>
+              <input type="text" name="newPassword" id="title" placeholder='New Password' required/> <br><br>
+              <input type="text" name="confirmPassword" id="title" placeholder='Confirm New Password' required/> <br><br>
+              <button class="waves-effect waves-light btn">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h3>Delete Account</h3>
+        <div class="row white-text">
+          <div class="col push-s2 s8">
+            <form action="/deleteAccount?_method=DELETE" method="post">
+              <h6>Account Deletion Cannot Be Undone <br/> Please Confirm Below</h6>
+              <input type="text" name="username" id="title" placeholder='Current Username' required/> <br><br>
+              <input type="text" name="password" id="title" placeholder='Current Password' required/> <br><br>
+              <button class="waves-effect waves-light btn">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
