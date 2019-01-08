@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	if(scrollToTopButton) {
 		scrollToTopButton.addEventListener('click', () => {
-			document.querySelector('html').scrollIntoView({ behavior: 'smooth' });
+			document.getElementById('topOfPage').scrollIntoView({ behavior: 'smooth' });
 		});
 	}
 	
