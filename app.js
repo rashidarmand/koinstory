@@ -9,15 +9,13 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-// const LocalStrategy = require('passport-local').Strategy;
-// const mongo = require('mongodb');
+const LocalStrategy = require('passport-local').Strategy;
+const mongo = require('mongodb');
 const mongoose = require('mongoose');
-// const dbHeroku = process.env.MONGO_DB_URI;
-// const dbLocal = 'mongodb://localhost/koinstory';
-const dbUrl = process.env.MONGO_DB_URI || 'mongodb://localhost/koinstory';
+const dbHeroku = process.env.MONGO_DB_URI;
+const dbLocal = 'mongodb://localhost/koinstory';
 mongoose.set('useCreateIndex', true);
-mongoose.connect(dbUrl, { useNewUrlParser: true });
-// console.log(dbUrl)
+mongoose.connect(dbHeroku, { useNewUrlParser: true });
 // const db = mongoose.connection;
 
 const routes = require('./routes/index');
@@ -118,7 +116,6 @@ app.use((req, res) => {
 });
 
 // Set Port
-//app.set('port', (process.env.PORT || 3000)); // Set port to whatever is in the environment variable PORT, or 3000 if there's nothing there.
 const port = process.env.PORT || 3000;
 
 // Create Server
