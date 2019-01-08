@@ -10,7 +10,7 @@
 * Passport.js
 * Express.js
 * Node.js
-* MongoDB
+* MongoDB + Mongoose
 
 #### Desktop Views:
 <img src='github/ks_desktop.png' alt="ks-desktop"/>
@@ -22,7 +22,7 @@
 
 ## Features 
 * Browse current market information on over 300 coins via Crypto Compare
-* Charts to visualize price movement of top 10 coins at a glance as well as portfolio holdings
+* Visualize price movement of top 10 coins and portfolio holdings at a glance with beautiful charts
 * View performance data on each of your portfolio holdings
 
 ## Demo Account Credentials
