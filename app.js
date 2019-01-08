@@ -16,7 +16,8 @@ const mongoose = require('mongoose');
 // const dbLocal = 'mongodb://localhost/koinstory';
 const dbUrl = process.env.MONGO_DB_URI || 'mongodb://localhost/koinstory';
 mongoose.set('useCreateIndex', true);
-mongoose.connect(dbUrl);
+mongoose.connect(dbUrl, { useNewUrlParser: true });
+// console.log(dbUrl)
 // const db = mongoose.connection;
 
 const routes = require('./routes/index');
