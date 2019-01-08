@@ -1,5 +1,5 @@
 {{!-- INDEX --}}
-{{#if user.portfolio}}
+{{#emptyPortfolio user.portfolio}}
   <br>
   <div class="black white-text center-align fadeInRight">
     <br>
@@ -14,7 +14,7 @@
   <br>
   <div class="black white-text center-align fadeInRight">
     <br>
-    <h1><span class="green-letter">W</span>elcome <strong>{{user.username}}</strong></h1>
+    <h1><span class="green-letter">H</span>i <strong>{{user.username}}</strong></h1>
     <p>
       <h3>This is your <span class="green-letter">S</span>tory!</h3><br>
       <ul>
@@ -170,6 +170,6 @@
       </form>
     </div>
   </div>
-{{/if}}
+{{/emptyPortfolio}}
 
 

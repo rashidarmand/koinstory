@@ -108,13 +108,19 @@ app.use( (req, res, next) => {
 app.use('/', routes);
 app.use('/users', users);
 
+// 404 error handling
+app.use((req, res) => {
+	req.flash('error_message', '404: not found !');
+	res.redirect('/');
+});
+
 // Set Port
 //app.set('port', (process.env.PORT || 3000)); // Set port to whatever is in the environment variable PORT, or 3000 if there's nothing there.
 const port = process.env.PORT || 3000;
 
 // Create Server
 app.listen( port, () => {
-	console.log(`Server is live on ${port}`);
+	console.log(`Server is live on port:${port}`);
 });
 
 

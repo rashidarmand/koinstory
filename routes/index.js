@@ -197,7 +197,7 @@ router.post('/addToPortfolio', ensureAuthenticated, (req, res) => {
 
 	// Search for a user via username and add coin to portfolio. Show error, if there is one.
 	// If coin already present in portfolio, add purchase details to buys array
-	User.findOne({ username: user.username })
+	User.findOne({ _id: user._id })
 		.then(u => {
 			const updatedPortfolio = [...user.portfolio];
 			const existingCoin = updatedPortfolio.find(val => val.symbol === coin.symbol);
@@ -228,7 +228,7 @@ router.delete('/deleteFromPortfolio', ensureAuthenticated, (req, res) => {
 	const { user } = req;
 	const { toBeDeleted } = req.body; // ID's are longer than 10
 	
-	User.findOne({ username: user.username })
+	User.findOne({ _id: user._id })
 		.then(u => {
 			const	updatedPortfolio = toBeDeleted.length > 10
 				? user.portfolio.filter(coin => {
@@ -260,7 +260,7 @@ router.put('/updateUser', ensureAuthenticated, (req, res) => {
 	const { user } = req;
 	const { newUsername, currentPassword, newPassword, confirmPassword  } = req.body;
 
-	User.findOne({ username: user.username })
+	User.findOne({ _id: user._id })
 		.then(u => {
 			// If newUsername is defined, update it
 			if(newUsername) {
@@ -305,6 +305,7 @@ router.put('/updateUser', ensureAuthenticated, (req, res) => {
 		});	
 });
 
+// Delete Account
 router.delete('/deleteAccount', ensureAuthenticated, (req, res) => {
 	const { user } = req;
 	const { username, password } = req.body;
@@ -312,12 +313,15 @@ router.delete('/deleteAccount', ensureAuthenticated, (req, res) => {
 	User.passwordCompare(password, user.password)
 		.then(valid => {
 			if(valid && username === user.username) {
-				User.findOneAndDelete({ _id: user._id });
-				req.flash('success_message', 	'Account sucessfully deleted !');
-				res.redirect('/settings');
+				User.findOneAndDelete({ _id: user._id })
+					.then(() => {
+						req.logout();
+						req.flash('success_message', 	'Account sucessfully deleted !');
+						res.redirect('/users/register');
+					});
 			} else {
 				req.flash('error_message', 'Incorrect username or password !');
-				res.redirect('/');
+				res.redirect('/settings');
 			}
 		});
 });

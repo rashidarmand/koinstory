@@ -22,9 +22,9 @@
         <div class="row white-text">
           <div class="col push-s2 s8">
             <form action="/updateUser?_method=PUT" method="post">
-              <input type="text" name="currentPassword" id="title" placeholder='Current Password' required/> <br><br>
-              <input type="text" name="newPassword" id="title" placeholder='New Password' required/> <br><br>
-              <input type="text" name="confirmPassword" id="title" placeholder='Confirm New Password' required/> <br><br>
+              <input type="password" name="currentPassword" id="title" placeholder='Current Password' required/> <br><br>
+              <input type="password" name="newPassword" id="title" placeholder='New Password' required/> <br><br>
+              <input type="password" name="confirmPassword" id="title" placeholder='Confirm New Password' required/> <br><br>
               <button class="waves-effect waves-light btn">Submit</button>
             </form>
           </div>
@@ -39,7 +39,7 @@
             <form action="/deleteAccount?_method=DELETE" method="post">
               <h6>Account Deletion Cannot Be Undone <br/> Please Confirm Below</h6>
               <input type="text" name="username" id="title" placeholder='Current Username' required/> <br><br>
-              <input type="text" name="password" id="title" placeholder='Current Password' required/> <br><br>
+              <input type="password" name="password" id="title" placeholder='Current Password' required/> <br><br>
               <button class="waves-effect waves-light btn">Submit</button>
             </form>
           </div>
