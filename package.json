@@ -4,7 +4,7 @@
   "description": "Rashid Armand Personal Passion Project",
   "main": "app.js",
   "engines": {
-    "node": "11.4.0"
+    "node": "10.15.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
