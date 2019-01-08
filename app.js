@@ -117,10 +117,10 @@ app.use((req, res) => {
 
 // Set Port
 //app.set('port', (process.env.PORT || 3000)); // Set port to whatever is in the environment variable PORT, or 3000 if there's nothing there.
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 
 // Create Server
-app.listen( port, () => {
+app.listen(process.env.PORT || 3000, () => {
 	console.log(`Server is live on port:${port}`);
 });
 
