@@ -12,9 +12,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-
+const dbHeroku = process.env.MONGO_DB_URI;
+const dbLocal = 'mongodb://localhost/koinstory';
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost/koinstory', { useNewUrlParser: true });
+mongoose.connect(dbHeroku, { useNewUrlParser: true });
 const db = mongoose.connection;
 
 const routes = require('./routes/index');
