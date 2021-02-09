@@ -2,3 +2,5 @@
 npm-debug.log
 .DS_Store
 /*.envnode_modules
+
+.env*
