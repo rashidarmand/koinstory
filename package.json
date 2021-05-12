@@ -17,7 +17,7 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parser": "*",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
     "eslint": "^5.11.0",
