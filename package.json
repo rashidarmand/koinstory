@@ -29,7 +29,7 @@
     "method-override": "^3.0.0",
     "mongodb": "*",
     "mongoose": "*",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^3.1.1",
     "numeral": "^2.0.6",
     "passport": "*",
     "passport-http": "*",
